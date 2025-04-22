@@ -2,7 +2,6 @@ import streamlit as st
 import random
 import json
 import os
-import time
 
 st.set_page_config(page_title="Eurovision Country Assigner", page_icon="🎤")
 
@@ -13,6 +12,8 @@ COUNTRIES = [
     "🇬🇷 Greece", "🇷🇸 Serbia", "🇺🇦 Ukraine", "🇨🇭 Switzerland", "🇳🇱 Netherlands",
     "🇦🇹 Austria", "🇧🇪 Belgium", "🇨🇿 Czech Republic", "🇦🇺 Australia", "🇮🇱 Israel"
 ]
+
+NAMES = ["Alice", "Allie", "Dan", "Kate", "Andy", "Emily", "Jack", "Mike", "Amy", "Seb", "Copper", "Lucy", "Sophie"]
 
 DATA_FILE = "assignments.json"
 
@@ -28,16 +29,24 @@ def save_assignments(assignments):
 
 assignments = load_assignments()
 
-# --- Styling and Logo ---
+# --- App Header ---
 st.markdown("<h1 style='text-align: center;'>🎤 Eurovision Country Assigner 🎉</h1>", unsafe_allow_html=True)
 st.image("https://upload.wikimedia.org/wikipedia/en/6/69/Eurovision_Song_Contest_logo.png", width=250)
 
-name = st.text_input("Enter your name to receive your Eurovision country:")
+# --- Button Selection ---
+st.subheader("Click your name to get your country:")
 
-if name:
-    if name in assignments:
-        country = assignments[name]
-        st.success(f"You are already representing: **{country}**! 🎉")
+clicked_name = None
+cols = st.columns(3)
+
+for i, name in enumerate(NAMES):
+    if cols[i % 3].button(name):
+        clicked_name = name
+
+if clicked_name:
+    if clicked_name in assignments:
+        country = assignments[clicked_name]
+        st.success(f"{clicked_name}, you are already representing: **{country}** 🎉")
     else:
         used = set(assignments.values())
         available = [c for c in COUNTRIES if c not in used]
@@ -45,11 +54,8 @@ if name:
         if not available:
             st.error("All countries have been assigned!")
         else:
-            with st.spinner("Spinning the wheel... 🌀"):
-                time.sleep(2.5)  # Simulate delay
             country = random.choice(available)
-            assignments[name] = country
+            assignments[clicked_name] = country
             save_assignments(assignments)
             st.balloons()
-            st.success(f"You are representing: **{country}**! 🎉")
-
+            st.success(f"{clicked_name}, you are representing: **{country}** 🎉")
