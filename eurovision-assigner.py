@@ -56,7 +56,7 @@ available_names = [n for n in NAMES if n not in used_names]
 
 # --- App Header ---
 st.markdown("<h1 style='text-align: center;'>🎤 Eurovision Country Assigner 🎉</h1>", unsafe_allow_html=True)
-st.image("https://upload.wikimedia.org/wikipedia/en/6/69/Eurovision_Song_Contest_logo.png", width=250)
+st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Eurovision_Song_Contest_Logo.svg/640px-Eurovision_Song_Contest_Logo.svg.png", width=300)
 
 # --- Name Selection ---
 if "name_selected" not in st.session_state:
