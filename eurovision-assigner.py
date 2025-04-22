@@ -69,7 +69,7 @@ if not st.session_state.name_selected:
     if name:
         st.session_state.name_selected = True
         st.session_state.current_name = name
-        st.experimental_rerun()
+        st.rerun()
 
 # --- Result Reveal ---
 elif st.session_state.name_selected:
