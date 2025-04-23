@@ -61,13 +61,8 @@ available_names = [n for n in NAMES if n not in used_names]
 
 # --- App Header ---
 st.markdown("<h1 style='text-align: center;'>🎤 Eurovision Country Assigner 🎉</h1>", unsafe_allow_html=True)
-st.markdown(
-    """
-    <div style='text-align: center;'>
-        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Eurovision_Song_Contest_Logo.svg/640px-Eurovision_Song_Contest_Logo.svg.png' width='300'/>
-    </div>
-    """,
-    unsafe_allow_html=True
+st.image("eurovision_logo.png", width=300)
+
 )
 
 # --- Name Selection ---
