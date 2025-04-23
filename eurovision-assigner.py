@@ -63,8 +63,6 @@ available_names = [n for n in NAMES if n not in used_names]
 st.markdown("<h1 style='text-align: center;'>🎤 Eurovision Country Assigner 🎉</h1>", unsafe_allow_html=True)
 st.image("eurovision_logo.png", width=300)
 
-)
-
 # --- Name Selection ---
 if "name_selected" not in st.session_state:
     st.session_state.name_selected = False
