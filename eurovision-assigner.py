@@ -8,9 +8,10 @@ st.set_page_config(page_title="Eurovision Country Assigner", page_icon="🎤")
 
 COUNTRIES = [
     "🇸🇪 Sweden", "🇫🇷 France", "🇮🇹 Italy", "🇪🇸 Spain", "🇩🇪 Germany",
-    "🇳🇴 Norway", "🇫🇮 Finland", "🇬🇧 United Kingdom", "🇮🇪 Ireland", "🇵🇹 Portugal",
+    "🇳🇴 Norway", "🇫🇮 Finland", "🇮🇪 Ireland", "🇵🇹 Portugal",
     "🇬🇷 Greece", "🇷🇸 Serbia", "🇺🇦 Ukraine", "🇨🇭 Switzerland", "🇳🇱 Netherlands",
-    "🇦🇹 Austria", "🇧🇪 Belgium", "🇨🇿 Czech Republic", "🇦🇺 Australia", "🇮🇱 Israel"
+    "🇦🇹 Austria", "🇧🇪 Belgium", "🇨🇿 Czech Republic", "🇦🇺 Australia", "🇮🇱 Israel",
+    "🇪🇪 Estonia", "🇱🇹 Lithuania", "🇮🇸 Iceland", "🇲🇹 Malta", "🇭🇷 Croatia"
 ]
 
 SUGGESTIONS = {
@@ -21,7 +22,6 @@ SUGGESTIONS = {
     "🇩🇪 Germany": "Bratwurst, pretzels, or German beer are crowd-pleasers! 🍺",
     "🇳🇴 Norway": "How about smoked salmon or a bottle of Linie Aquavit? 🐟",
     "🇫🇮 Finland": "Try Karelian pies or a bottle of Salmiakki liqueur! 🥧",
-    "🇬🇧 United Kingdom": "Scones, Pimm’s, or even fish and chips will do nicely 🇬🇧",
     "🇮🇪 Ireland": "Bring some Guinness or an Irish stew for the win! 🍻",
     "🇵🇹 Portugal": "Pastéis de nata or a bottle of Port wine = perfection 🇵🇹",
     "🇬🇷 Greece": "Spanakopita, tzatziki, or ouzo are all great ideas 🇬🇷",
@@ -34,9 +34,14 @@ SUGGESTIONS = {
     "🇨🇿 Czech Republic": "Try bringing goulash or some Czech pilsner 🇨🇿",
     "🇦🇺 Australia": "Lamingtons, pavlova, or a good Shiraz would be ace 🇦🇺",
     "🇮🇱 Israel": "Shakshuka, hummus, or arak for a tasty touch 🇮🇱",
+    "🇪🇪 Estonia": "Vastlakukkel (cream buns) or a bottle of Vana Tallinn 🇪🇪",
+    "🇱🇹 Lithuania": "Šaltibarščiai (cold beet soup) or Lithuanian beer 🇱🇹",
+    "🇮🇸 Iceland": "Skyr or smoked lamb would be a unique Icelandic touch 🇮🇸",
+    "🇲🇹 Malta": "Pastizzi or Kinnie soda make great Maltese snacks 🇲🇹",
+    "🇭🇷 Croatia": "Burek or a bottle of Rakija are Croatian favorites 🇭🇷"
 }
 
-NAMES = ["Alice", "Allie", "Amy", "Emily", "Kate", "Sophie", "Dan", "Andy", "Tom", "Mike", "Jack", "Seb", "Copper", "Lucy"]
+NAMES = ["Alice", "Allie", "Amy", "Emily", "Kate", "Sophie", "Dan", "Andy", "Tom", "Mike", "Jack",]
 
 DATA_FILE = "assignments.json"
 
@@ -56,7 +61,14 @@ available_names = [n for n in NAMES if n not in used_names]
 
 # --- App Header ---
 st.markdown("<h1 style='text-align: center;'>🎤 Eurovision Country Assigner 🎉</h1>", unsafe_allow_html=True)
-st.image("eurovision_logo.png", width=300)
+st.markdown(
+    """
+    <div style='text-align: center;'>
+        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Eurovision_Song_Contest_Logo.svg/640px-Eurovision_Song_Contest_Logo.svg.png' width='300'/>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # --- Name Selection ---
 if "name_selected" not in st.session_state:
@@ -69,7 +81,10 @@ if not st.session_state.name_selected:
     if name:
         st.session_state.name_selected = True
         st.session_state.current_name = name
-        st.rerun()
+        try:
+            st.rerun()
+        except AttributeError:
+            st.experimental_rerun()
 
 # --- Result Reveal ---
 elif st.session_state.name_selected:
